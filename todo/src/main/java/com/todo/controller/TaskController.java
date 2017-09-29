@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.todo.model.Task;
+import com.todo.model.TaskStatus;
+import com.todo.model.TaskStatus.StatusType;
 import com.todo.repositories.AppRepository;
 
 @RestController
@@ -68,6 +70,37 @@ public class TaskController {
 						task.setDescription(taskModified.getDescription());
 						task.setStatus(taskModified.getStatus());
 						task.setDateTime(taskModified.getDateTime());
+						AppRepository.getTaskRepository().save(task);
+						return AppRepository.getTaskRepository().findAll(new Sort(Sort.Direction.ASC, "dateTime"));
+					} else {
+						//return Helper.EMP_ERROR_NO_DATA.value();
+						return AppRepository.getTaskRepository().findAll(new Sort(Sort.Direction.ASC, "dateTime"));
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+					//return Helper.EMP_ERROR.value();
+					return AppRepository.getTaskRepository().findAll(new Sort(Sort.Direction.ASC, "dateTime"));
+				}
+			} else {
+				//return Helper.EMP_ERROR_PARAMETERS.value();
+				return AppRepository.getTaskRepository().findAll(new Sort(Sort.Direction.ASC, "dateTime"));
+			}
+		} else {
+			return AppRepository.getTaskRepository().findAll(new Sort(Sort.Direction.ASC, "dateTime"));
+		}
+	}
+	
+	@RequestMapping(value = "/tasks/update/status", method = RequestMethod.PUT)
+	public List<Task> updateStatus(@RequestBody String payload) throws IOException {
+		if(payload != null) {
+			if(payload.trim().length() != 0) {
+				ObjectMapper objectMapper = new ObjectMapper();
+				try {
+					Task taskModified = objectMapper.readValue(payload, Task.class);
+					Task task = AppRepository.getTaskRepository().findById(taskModified.getId(), new Sort(Sort.Direction.ASC, "dateTime"));
+					if(task != null) {
+						TaskStatus.StatusType statusType = taskModified.getStatus();
+						task.setStatus(statusType);
 						AppRepository.getTaskRepository().save(task);
 						return AppRepository.getTaskRepository().findAll(new Sort(Sort.Direction.ASC, "dateTime"));
 					} else {

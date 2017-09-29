@@ -19,8 +19,8 @@ public class TaskStatusController {
 	@RequestMapping(value = "/tasks/status/{status}", method = RequestMethod.GET)
 	public List<Task> readAll(@PathVariable("status") String status) {
 		try {
-			TaskStatus.StatusType a = TaskStatus.StatusType.valueOf(status.toUpperCase());
-			return AppRepository.getTaskRepository().findByStatus(a, new Sort(Sort.Direction.ASC, "dateTime"));
+			TaskStatus.StatusType statusType = TaskStatus.StatusType.valueOf(status.toUpperCase());
+			return AppRepository.getTaskRepository().findByStatus(statusType, new Sort(Sort.Direction.ASC, "dateTime"));
 		} catch (Exception e) {
 			return null;
 		}

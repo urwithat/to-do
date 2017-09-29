@@ -1,0 +1,17 @@
+<div style="border-bottom: 5px solid blue;">
+  Tasks
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap="wrap" class="content">
+    <div class="blocks" style="border: 2px solid blue; margin: 2%;" fxFlex="28%" *ngFor="let task of tasks">
+      <div>Id - {{task.id}}</div>
+      <div>Title - {{task.title}}</div>
+      <div>Description - {{task.description}}</div>
+      <div>Status - 
+        <select [(ngModel)]="task.status" (ngModelChange)="updateStatus(task.id, $event)" >
+          <option *ngFor="let status of statuses" [ngValue]="status.key"> {{status.value}} </option>
+        </select>
+      </div>
+      <div>Created Date Time - {{task.dateTime}}</div>
+      <button (click)="deleteTask(task.id)">Delete</button>
+    </div>
+  </div>
+</div>

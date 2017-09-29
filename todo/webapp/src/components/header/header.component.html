@@ -1,0 +1,21 @@
+<div style="border-bottom: 5px solid blue;">
+  Filter on Status
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap="wrap" class="content">
+    <div style="margin: 2%;" fxFlex="16%">
+        <button (click)="filterStatus('ALL')">All</button>
+    </div>
+    <div style="margin: 2%;" fxFlex="16%">
+        <button (click)="filterStatus('COMPLETED')">Completed</button>
+    </div>
+    <div style="margin: 2%;" fxFlex="16%">
+        <button (click)="filterStatus('INPROGRESS')">Inprogress</button>
+    </div>
+    <div style="margin: 2%;" fxFlex="16%">
+        <button (click)="filterStatus('PENDING')">Pending</button>
+    </div>
+    <div style="margin: 2%;" fxFlex="16%">
+        <button (click)="filterStatus('ONHOLD')">On Hold</button>
+    </div>
+  </div>
+</div>
+  

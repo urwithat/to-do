@@ -1,0 +1,23 @@
+<div style="border-bottom: 5px solid blue;">
+  <form #addForm="ngForm" (ngSubmit)="save(addForm.value)">
+    Add Tasks
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutWrap="wrap" class="content">
+      <div style="margin: 2%;" fxFlex="20%">
+        <input name="title" mdInput [(ngModel)]="data.task.title" required placeholder="Title">
+      </div>
+      <div style="margin: 2%;" fxFlex="20%">
+        <input name="description" mdInput [(ngModel)]="data.task.description" required placeholder="Description">
+      </div>
+      <div style="margin: 2%;" fxFlex="20%">
+          <select name="status" mdInput [(ngModel)]="data.task.status">
+            <option *ngFor="let status of statuses" [ngValue]="status.key"  required placeholder="Status"> {{status.value}} </option>
+          </select>
+      </div>
+      <input name="id" type="hidden"[(ngModel)]="data.task.id">
+      <div style="margin: 2%;" fxFlex="20%">
+        <button [disabled]="!addForm.form.valid" tabindex="2">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
+  
